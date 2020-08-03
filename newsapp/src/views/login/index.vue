@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar class='login-nav-bar' title='登录' />
-    <van-form ref="loginForm" @submit='onSubmit'>
+    <van-form ref='loginForm' @submit='onSubmit'>
       <van-field
         v-model='user.mobile'
         required
@@ -11,7 +11,7 @@
         placeholder='请输入手机号'
         type='text'
         max-length='11'
-        :rules="userFormRule.mobile"
+        :rules='userFormRule.mobile'
       >
         <i slot='left-icon' class='iconfont iconshouji'></i>
       </van-field>
@@ -23,17 +23,17 @@
         placeholder='请输入验证码'
         required
         max-length='6'
-        :rules="userFormRule.code"
+        :rules='userFormRule.code'
       >
         <i slot='left-icon' class='iconfont iconpassword'></i>
         <template #button>
-           <van-count-down
-             v-if="isCountDownShow"
-            :time="1000 * 60"
-            format="ss s"
-            @finish="isCountDownShow = false"
+          <van-count-down
+            v-if='isCountDownShow'
+            :time='1000 * 60'
+            format='ss s'
+            @finish='isCountDownShow = false'
           />
-          <van-button v-else class='login-captcha' native-type='button' @click="sendCode">验证码</van-button>
+          <van-button v-else class='login-captcha' native-type='button' @click='sendCode'>验证码</van-button>
         </template>
       </van-field>
       <van-button class='login-submit' round block type='info' native-type='submit'>登录</van-button>
@@ -44,37 +44,43 @@
 <script>
 import { login, getSmsCode } from '@/api/user'
 export default {
-  data () {
+  data() {
     return {
       isCountDownShow: false,
       user: {
         mobile: '13911111111',
-        code: '246810'
+        code: '246810',
       },
       userFormRule: {
-        mobile: [{
-          required: true,
-          message: '手机号码不能为空'
-        }, {
-          pattern: /^1[|3|5|7|8]\d{9}$/,
-          message: '手机格式错误'
-        }],
-        code: [{
-          required: true,
-          message: '验证码不能为空'
-        }, {
-          pattern: /^\d{6}$/,
-          message: '验证码为6位数字'
-        }]
-      }
+        mobile: [
+          {
+            required: true,
+            message: '手机号码不能为空',
+          },
+          {
+            pattern: /^1[|3|5|7|8]\d{9}$/,
+            message: '手机格式错误',
+          },
+        ],
+        code: [
+          {
+            required: true,
+            message: '验证码不能为空',
+          },
+          {
+            pattern: /^\d{6}$/,
+            message: '验证码为6位数字',
+          },
+        ],
+      },
     }
   },
   methods: {
-    async onSubmit () {
+    async onSubmit() {
       this.$toast.loading({
         message: '登录中……',
         duration: 0,
-        forbidClick: true
+        forbidClick: true,
       })
       // 请求登录
       try {
@@ -91,7 +97,7 @@ export default {
         }
       }
     },
-    async sendCode () {
+    async sendCode() {
       try {
         await this.$refs.loginForm.validate('mobile')
       } catch (err) {
@@ -109,8 +115,8 @@ export default {
           this.$toast('发送失败，请稍后再试')
         }
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
