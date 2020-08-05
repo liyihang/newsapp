@@ -1,15 +1,34 @@
 <template>
-  <div>
-      个人中心
+  <div class='my-container'>
+    <div class='header'>
+      <img class='mobile-img' src='~@/assets/mobile.png' @click="$router.push('/login')" />
+    </div>
+    <div class='grid-nav'></div>
+    <van-cell title='消息通知' is-link url />
+    <van-cell title='实名认证' is-link url />
+    <van-cell title='用户反馈' is-link url />
+    <van-cell title='小智同学' is-link url />
+    <van-cell title='系统设置' is-link url />
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
-<style>
-
+<style scoped lang="less">
+.my-container{
+  .header{
+    height: 360px;
+    background: url('~@/assets/banner.png') no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .img-mobile{
+      height: 132px;
+      width: 132px;
+    }
+  }
+}
 </style>
